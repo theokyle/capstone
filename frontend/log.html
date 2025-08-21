@@ -24,18 +24,22 @@
     </header>
 <main>
   <h1>Step Log</h1>
-  <div class="step-chart">
+  <div class="step-chart"></div>
 
-  </div>
   <h2>Daily Steps</h2>
-  <ul>
-    <li><span>August 19th, 2025</span>  -  <span>8,997</span></li>
-  </ul>
-  <button>Add Steps</button>
+  <div id="stepLog"></div>
+
+  <form class="hidden" id="addStepForm">
+    <label for="stepDate">Date: </label>
+    <input type="date" name="stepDate" id="stepDate">
+    <label for="stepCount">Steps: </label>
+    <input type="number" name="stepCount" id="stepCount">
+  </form>
+  <button id="addStepBtn">Add Steps</button>
 </main>
 <footer>
       <p>Made by Kyle Butler c 2025</p>
     </footer>
-<script src="index.js"></script>
+<script type="module" src="log.js"></script>
 </body>
 </html>

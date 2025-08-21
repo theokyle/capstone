@@ -24,33 +24,25 @@
     </header>
   <main>
     <h1>Journey Tracker</h1>
-    <img src="./assets/map.jpg">
-    <p>Next Milestone: <span>30 miles</span></p>
+    <img src="./assets/map.jpg" id="map">
     <h2>Next Milesone Info</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam quis tellus sit amet quam
-      aliquet pellentesque. Pellentesque habitant morbi tristique senectus et netus et malesuada
-      fames ac turpis egestas. Nullam gravida fringilla euismod. Aliquam cursus cursus lacus sed
-      porttitor. Duis condimentum pulvinar nibh, ac congue arcu posuere vitae. Donec egestas lectus
-      id gravida semper. Suspendisse maximus consectetur eleifend. Nullam pulvinar bibendum tortor
-      id consectetur. Pellentesque et magna faucibus, ullamcorper velit at, tempus lacus. Suspendisse
-      eget neque in arcu finibus dignissim eget nec nunc. Morbi vel felis sem.</p>
+    <div id="nextMilestone"></div>
+
     <h2>Milestones Achieved</h2>
-    <ul>
-      <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-      </li>Mauris malesuada tortor luctus tincidunt lacinia.</li>
-      <li>Suspendisse at ligula placerat, malesuada enim vitae, efficitur sapien.</li>
-    </ul>
+    <div id="completedMilestones">
+    </div>
+
     <div class="step-entry">
       <h2>Daily Step Entry</h2>
       <form>
-        <input type="number" placeholder="# of Steps">
-        <input type="submit" value="Add Steps">
+        <input type="number" placeholder="# of Steps" id="stepNumber">
+        <input type="submit" value="Add Steps" id="trackerAddSteps">
       </form>
     </div>
   </main>
   <footer>
       <p>Made by Kyle Butler c 2025</p>
     </footer>
-<script src="index.js"></script>
+<script type="module" src="tracker.js"></script>
 </body>
 </html>

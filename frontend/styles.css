@@ -32,3 +32,11 @@ footer {
 .journey-info > * {
   margin: 5px;
 }
+
+.hidden {
+  display: none;
+}
+
+#map {
+  width: 25%;
+}
