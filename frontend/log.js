@@ -1,12 +1,15 @@
 import { data } from "./assets/data.js";
 
-const log = document.getElementById("step-log");
+const log = document.getElementById("stepLog");
 function updateLog() {
   log.innerHTML = "";
+  const table = document.createElement("table");
+  table.innerHTML = `<tr><th>Date</th><th>Steps</th></tr>`;
+  log.appendChild(table);
   data.user.steps.forEach(item => {
-    const li = document.createElement("li");
-    li.innerHTML = `<span class="date">${item.date}</span> : <span>${item.steps}</span>`;
-    log.appendChild(li);
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${item.date}</td><td>${item.steps}</td>`;
+    table.appendChild(tr);
   });
 }
 updateLog();
