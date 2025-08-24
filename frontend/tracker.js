@@ -25,6 +25,7 @@ document.getElementById("trackerAddSteps").addEventListener("click", event => {
   data.user.activeJourneySteps += Number(
     document.getElementById("stepNumber").value
   );
+  document.getElementById("stepNumber").value = 0;
   checkProgress(
     data.user.activeJourneySteps,
     data.user.activeJourneyMilestones,

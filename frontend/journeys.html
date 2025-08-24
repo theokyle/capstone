@@ -5,30 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Journeys</title>
   <link rel="stylesheet" href="styles.css">
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
 </head>
 <body>
-<header>
+    <header class="sidebar">
       <div class="logo">
-        <a href="./index.html"><img src="./assets/logo.png"></a>
+        <a href="./index.html"><img id="logo-img" src="./assets/logo.png"></a>
       </div>
-      <nav class="sidebar">
+      <nav>
         <ul>
-          <li><a href="./tracker.html">Tracker</a></li>
-          <li><a href="./log.html">Log</a></li>
-          <li><a href="./journeys.html">Journeys</a></li>
+          <li class="nav-item"><a href="./tracker.html"><i class="fa-solid fa-map"></i> <span class="nav-text">Tracker</span></a></li>
+          <li class="nav-item"><a href="./log.html"><i class="fa-solid fa-clipboard-list"></i> <span class="nav-text">Log</span></a></li>
+          <li class="nav-item active"><a href="./journeys.html"><i class="fa-solid fa-compass"></i> <span class="nav-text">Journeys</span></a></li>
+          <li class="nav-item"><i class="fa-solid fa-user"></i> <span class="nav-text">Profile</span></li>
         </ul>
-        <ul>
-          <li>Sign Up</li>
         </ul>
       </nav>
     </header>
   <main>
-  <h1>Journeys</h1>
-  <div class="journey-box">
-    <h3>Journey to Mt. Doom</h3>
-    <p>25%</p>
-  </div>
-  <a href="./createJourney.html"><button>Create Journey</button></a>
+    <div class="content">
+      <h1>Journeys</h1>
+      <div class="journey-box">
+        <h3>Journey to Mt. Doom</h3>
+        <p>25%</p>
+      </div>
+      <a href="./createJourney.html"><button>Create Journey</button></a>
+    </div>
   </main>
   <footer>
       <p>Made by Kyle Butler c 2025</p>

@@ -1,27 +1,187 @@
-img {
-  max-width: 100%;
+/* Color Scheme */
+:root {
+  --dark-background: #344e41;
+  --light-background: #dad7cd;
+  --accent-background: #588157;
+  --dark-text: #344e41;
+  --light-text: #ffd97d;
+
 }
 
+/* CSS Reset */
+
+* {
+  list-style-type: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a:visited {
+  color: inherit;
+}
+
+/* Media Queries */
+
+/* Desktop */
+
+@media (min-width: 500px) {
 body {
   display: grid;
-  grid-template: 25% 70% 5% / 20% 80%;
+  grid-template-columns: 15% 85%;
   max-width: 100%;
   min-height: 100vh;
 }
 
 header {
-  grid-area: 1 / 1 / 4 / 2;
+  grid-column: 1 / 2;
 }
 
 main {
-  grid-area: 1 / 2 / 3 / 3;
+  grid-column: 2 / 3;
 }
 
 footer {
-  grid-area: 3 / 2 / 4 / 3;
+  grid-column: 2 / 3;
 }
 
-.journey-info, .milestone {
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 15%;
+  background-color: var(--dark-background);
+  color: var(--light-text);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+nav > ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item {
+  border-bottom: 1px solid var(--light-background);
+}
+
+nav > ul:first-child {
+  border-top: 1px solid var(--light-background);
+}
+
+.hero > h1 {
+  font-size: 10rem;
+  font-family: "Bilbo", cursive;
+}
+}
+
+/* Mobile */
+
+@media (max-width: 500px) {
+.sidebar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10%;
+  background-color: var(--dark-background);
+  color: var(--light-text);
+  display: flex;
+  justify-content: space-between;
+}
+
+nav {
+  width: 100vw;
+}
+
+nav > ul {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-item {
+  border-right: 1px solid var(--light-background);
+  padding: 0;
+}
+
+nav > ul:first-child {
+  border-left: 1px solid var(--light-background);
+}
+
+.logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 10%;
+  background-color: var(--dark-background);
+}
+
+#logo-img {
+  width: 20%;
+  margin-left: 2%;
+}
+
+main {
+  margin: 10% auto;
+}
+
+.hero > h1 {
+  font-size: 5rem;
+  font-family: "Bilbo", cursive;
+}
+
+.milestone {
+  flex-direction: column;
+  align-items: center;
+}
+}
+
+/* Main Content Styles */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1.2rem;
+  min-height: 100vh;
+}
+
+.content > h2 {
+  margin-bottom: 1.1rem;
+}
+
+main, footer {
+  background-color: var(--light-background);
+  color: var(--dark-text)
+}
+
+/* Nav Bar */
+
+img {
+  max-width: 100%;
+}
+
+.nav-item, .register{
+  width: 100%;
+  text-align: center;
+  padding: 1.2rem;
+  font-size: large;
+  font-weight: bold;
+}
+
+.active {
+  background-color: var(--accent-background);
+}
+
+/* Journey Page */
+
+.journey-info, .milestone-info {
   display: flex;
   flex-direction: column;
   border: 1px solid black;
@@ -37,6 +197,57 @@ footer {
   display: none;
 }
 
-#map {
-  width: 25%;
+/* Hero Styling */
+
+.hero {
+  background: url("./assets/hero-background.jpg") no-repeat top center;
+  background-size: 100% 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero > * {
+  color: var(--light-text);
+}
+
+/* Tracker Display Sections */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 2%;
+  margin: 2%;
+  width: 90%;
+  background-color: #a3b18a;
+}
+
+.milestone-img {
+  width: 50%;
+  max-height: 10%;
+}
+
+.milestone {
+  display: flex;
+  justify-content: space-around;
+  margin: 1.2rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.2rem;
 }

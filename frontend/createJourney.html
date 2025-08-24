@@ -5,20 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create a Journey</title>
   <link rel="stylesheet" href="styles.css">
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
 </head>
 <body>
-<header>
+    <header class="sidebar">
       <div class="logo">
-        <a href="./index.html"><img src="./assets/logo.png"></a>
+        <a href="./index.html"><img id="logo-img" src="./assets/logo.png"></a>
       </div>
-      <nav class="sidebar">
+      <nav>
         <ul>
-          <li><a href="./tracker.html">Tracker</a></li>
-          <li><a href="./log.html">Log</a></li>
-          <li><a href="./journeys.html">Journeys</a></li>
+          <li class="nav-item"><a href="./tracker.html"><i class="fa-solid fa-map"></i> <span class="nav-text">Tracker</span></a></li>
+          <li class="nav-item"><a href="./log.html"><i class="fa-solid fa-clipboard-list"></i> <span class="nav-text">Log</span></a></li>
+          <li class="nav-item active"><a href="./journeys.html"><i class="fa-solid fa-compass"></i> <span class="nav-text">Journeys</span></a></li>
+          <li class="nav-item"><i class="fa-solid fa-user"></i> <span class="nav-text">Profile</span></li>
         </ul>
-        <ul>
-          <li>Sign Up</li>
         </ul>
       </nav>
     </header>
@@ -34,7 +41,7 @@
       <input type="text" name="description" id="description" placeholder="Walk from the Shire to Mount
       Doom to destroy the One Ring and save Middle Earth.">
     </div>
-    <div class="milestone">
+    <div class="milestone-info">
       <label for="milestoneName">Milestone Name: </label>
       <input type="text" name="milestoneName" id="milestoneName">
       <label for="distance">Distance: </label>
