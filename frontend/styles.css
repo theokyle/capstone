@@ -1,42 +1,294 @@
-img {
-  max-width: 100%;
+/* Color Scheme */
+:root {
+  --dark-background: #344e41;
+  --light-background: #dad7cd;
+  --accent-background: #a3b18a;
+  --accent-two: #dda15e;
+  --dark-text: #344e41;
+  --light-text: #ffd97d;
+
 }
 
+/* CSS Reset */
+
+* {
+  list-style-type: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a:visited {
+  color: inherit;
+}
+
+/* Media Queries */
+
+/* Desktop */
+
+@media (min-width: 500px) {
 body {
-  display: grid;
-  grid-template: 25% 70% 5% / 20% 80%;
   max-width: 100%;
   min-height: 100vh;
 }
 
-header {
-  grid-area: 1 / 1 / 4 / 2;
+.content, .hero, footer {
+  padding-left: 15%;
 }
 
-main {
-  grid-area: 1 / 2 / 3 / 3;
-}
-
-footer {
-  grid-area: 3 / 2 / 4 / 3;
-}
-
-.journey-info, .milestone {
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 15%;
+  background-color: var(--dark-background);
+  color: var(--light-text);
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
-  margin: 5px;
-  padding: 10px;
+  justify-content: space-between;
 }
 
-.journey-info > * {
+nav > ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item {
+  border-bottom: 1px solid var(--light-background);
+  padding: 1.2rem;
+}
+
+nav > ul:first-child {
+  border-top: 1px solid var(--light-background);
+}
+
+.hero > h1 {
+  font-size: 10rem;
+  font-family: "Bilbo", cursive;
+}
+}
+
+/* Mobile */
+
+@media (max-width: 500px) {
+.sidebar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10%;
+  background-color: var(--dark-background);
+  color: var(--light-text);
+  display: flex;
+  justify-content: space-between;
+}
+
+nav {
+  width: 100vw;
+}
+
+nav > ul {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-item {
+  border-right: 1px solid var(--light-background);
+  padding: 1.1rem;
+}
+
+nav > ul:first-child {
+  border-left: 1px solid var(--light-background);
+}
+
+.logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 10%;
+  background-color: var(--dark-background);
+}
+
+#logo-img {
+  width: 20%;
+  margin-left: 2%;
+}
+
+.content {
+  padding: 15% 2%;
+}
+
+.hero > h1 {
+  font-size: 5rem;
+  font-family: "Bilbo", cursive;
+}
+
+.milestone {
+  flex-direction: column;
+  align-items: center;
+}
+}
+
+/* Main Content Styles */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+}
+
+h2, h3 {
+  margin: 10px;
+  text-decoration: underline;
+}
+
+p {
   margin: 5px;
+}
+
+input {
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.button {
+  padding: .5rem;
+  border-radius: 25px;
+  background-color: var(--accent-two);
+}
+
+main, footer {
+  background-color: var(--light-background);
+  color: var(--dark-text)
 }
 
 .hidden {
   display: none;
 }
 
-#map {
-  width: 25%;
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75%;
+}
+
+.footer {
+  margin: 0;
+}
+
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+
+/* Nav Bar */
+
+img {
+  max-width: 100%;
+}
+
+.nav-item, .register{
+  width: 100%;
+  text-align: center;
+  font-size: large;
+  font-weight: bold;
+}
+
+.active {
+  background-color: var(--accent-background);
+}
+
+/* Hero Styling */
+
+.hero {
+  background: url("./assets/hero-background.jpg") no-repeat top center;
+  background-size: 100% 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero > * {
+  color: var(--light-text);
+}
+
+/* Tracker Display Sections */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 3%;
+  margin: 2%;
+  width: 90%;
+  background-color: var(--accent-background);
+  color: var(--dark-text)
+}
+
+.milestone-img {
+  width: 50%;
+  max-height: 10%;
+}
+
+.milestone {
+  display: flex;
+  justify-content: space-around;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 1.2rem;
+}
+
+/* Log Sheet Styles */
+
+.log {
+  margin: 15px;
+}
+
+tr > * {
+  padding: 10px;
+  border: 1px solid black;
+  background-color: var(--light-background);
+}
+
+th {
+  background-color: #dda15e;
+}
+
+/* Journeys Page */
+
+.outer-bar {
+  width: 80%;
+  height: 20px;
+  border: 1px solid var(--dark-background);
+}
+
+#inner {
+  height: 18px;
+  background-color: #dda15e;
 }

@@ -10,21 +10,33 @@ export function getNextMilestone(milestones) {
 }
 
 export function displayMilestone(parentElement, milestone, currentDistance) {
+  const container = document.createElement("div");
+  container.classList.add("milestone");
+  const info = document.createElement("div");
+  info.classList.add("info");
+
   const name = document.createElement("h3");
   const description = document.createElement("p");
+  const img = document.createElement("img");
 
   name.textContent = milestone.name;
   description.textContent = milestone.description;
+  img.src = milestone.imgURL;
+  img.classList.add("milestone-img");
 
-  parentElement.appendChild(name);
+  info.appendChild(name);
 
   if (milestone.distance - currentDistance > 0) {
     const distance = document.createElement("p");
-    distance.textContent = milestone.distance - currentDistance;
-    parentElement.appendChild(distance);
+    distance.textContent = `Steps to destination: ${milestone.distance -
+      currentDistance}`;
+    info.appendChild(distance);
+    container.appendChild(img);
   }
+  info.appendChild(description);
 
-  parentElement.appendChild(description);
+  container.appendChild(info);
+  parentElement.appendChild(container);
 }
 
 export function checkProgress(steps, userMilestones, journeyMilestones) {

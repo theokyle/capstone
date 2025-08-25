@@ -5,40 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Step Log</title>
   <link rel="stylesheet" href="styles.css">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
 </head>
 <body>
-<header>
+    <header class="sidebar">
       <div class="logo">
-        <a href="./index.html"><img src="./assets/logo.png"></a>
+        <a href="./index.html"><img id="logo-img" src="./assets/logo.png"></a>
       </div>
-      <nav class="sidebar">
+      <nav>
         <ul>
-          <li><a href="./tracker.html">Tracker</a></li>
-          <li><a href="./log.html">Log</a></li>
-          <li><a href="./journeys.html">Journeys</a></li>
+          <li class="nav-item"><a href="./tracker.html"><i class="fa-solid fa-map"></i> <span class="nav-text">Tracker</span></a></li>
+          <li class="nav-item active"><a href="./log.html"><i class="fa-solid fa-clipboard-list"></i> <span class="nav-text">Log</span></a></li>
+          <li class="nav-item"><a href="./journeys.html"><i class="fa-solid fa-compass"></i> <span class="nav-text">Journeys</span></a></li>
+          <li class="nav-item"><i class="fa-solid fa-user"></i> <span class="nav-text">Profile</span></li>
         </ul>
-        <ul>
-          <li>Sign Up</li>
         </ul>
       </nav>
     </header>
 <main>
-  <h1>Step Log</h1>
-  <div class="step-chart"></div>
+  <div class="content">
+    <h1>Step Log</h1>
 
-  <h2>Daily Steps</h2>
-  <div id="stepLog"></div>
-
-  <form class="hidden" id="addStepForm">
-    <label for="stepDate">Date: </label>
-    <input type="date" name="stepDate" id="stepDate">
-    <label for="stepCount">Steps: </label>
-    <input type="number" name="stepCount" id="stepCount">
-  </form>
-  <button id="addStepBtn">Add Steps</button>
+    <div class="section">
+      <h2>Daily Steps</h2>
+      <div id="stepLog"></div>
+    </div>
+      <form class="hidden" id="addStepForm">
+        <label for="stepDate">Date </label>
+        <input type="date" name="stepDate" id="stepDate">
+        <label for="stepCount">Steps </label>
+        <input type="number" name="stepCount" id="stepCount">
+      </form>
+      <button id="addStepBtn" class="button">Add Steps</button>
+  </div>
 </main>
 <footer>
-      <p>Made by Kyle Butler c 2025</p>
+      <p class="footer">Made by Kyle Butler c 2025</p>
     </footer>
 <script type="module" src="log.js"></script>
 </body>

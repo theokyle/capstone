@@ -4,18 +4,24 @@ const log = document.getElementById("stepLog");
 function updateLog() {
   log.innerHTML = "";
   const table = document.createElement("table");
+  table.classList.add("log");
   table.innerHTML = `<tr><th>Date</th><th>Steps</th></tr>`;
   log.appendChild(table);
   data.user.steps.forEach(item => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${item.date}</td><td>${item.steps}</td>`;
+    const date = document.createElement("td");
+    date.textContent = item.date.toString();
+    const steps = document.createElement("td");
+    steps.textContent = item.steps;
+    tr.appendChild(date);
+    tr.appendChild(steps);
     table.appendChild(tr);
   });
 }
 updateLog();
 
 const addStepBtn = document.getElementById("addStepBtn");
-function addStep(event) {
+function addStep() {
   if (addStepBtn.textContent === "Submit") {
     data.user.steps.push({
       date: document.getElementById("stepDate").value,
