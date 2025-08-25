@@ -6,7 +6,7 @@ const data = {
       { date: "August 19, 2025", steps: 8980 }
     ],
     activeJourney: "Journey to Mount Doom",
-    activeJourneySteps: 19582,
+    activeJourneySteps: 19000,
     activeJourneyMilestones: [
       { id: 1, completed: true },
       { id: 2, completed: false },
