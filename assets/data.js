@@ -1,20 +1,17 @@
-const data = {
+export const data = {
   user: {
     username: "frodo",
     steps: [
       { date: "August 18, 2025", steps: 10602 },
       { date: "August 19, 2025", steps: 8980 }
     ],
-    activeJourney: "Journey to Mount Doom",
+    activeJourney: 1,
     activeJourneySteps: 19000,
-    activeJourneyMilestones: [
-      { id: 1, completed: true },
-      { id: 2, completed: false },
-      { id: 3, completed: false }
-    ]
+    currentMilestone: 2
   },
   journeys: [
     {
+      id: 1,
       name: "Journey to Mount Doom",
       universe: "Middle Earth",
       description: "Walk from the Shire to Mount Doom",
@@ -22,7 +19,7 @@ const data = {
         {
           id: 1,
           name: "The High Hay",
-          imgURL: "./assets/img/high-hay.png",
+          imgURL: "../assets/img/milestone-img/high-hay.png",
           distance: 15000,
           description: `Constantly tended, it was thick and tall, and ran for over twenty miles.
           At the north end the Hay ran down to the river-bank close to the Brandywine Bridge.
@@ -37,7 +34,7 @@ const data = {
         {
           id: 2,
           name: "The Old Forest",
-          imgURL: "./assets/img/old-forest.png",
+          imgURL: "../assets/img/milestone-img/old-forest.png",
           distance: 30000,
           description: `The Old Forest, like Fangorn, was described to be dark and tangled, though
           both were less so than the Taur-im-Duinath of Beleriand. Aside from the trees, a valley
@@ -52,7 +49,7 @@ const data = {
         {
           id: 3,
           name: "Bree",
-          imgURL: "./assets/img/bree.png",
+          imgURL: "../assets/img/milestone-img/bree.png",
           distance: 45000,
           description: `Bree was a town of Men and hobbits, located east of the Shire, north of the
           South Downs, west of Weathertop, and south of Fornost in Eriador. It was also the first of
@@ -65,5 +62,3 @@ const data = {
     }
   ]
 };
-
-export { data };
