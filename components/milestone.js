@@ -1,12 +1,10 @@
 import html from "html-literal";
-import * as images from "../assets/img";
+// import * as images from "../assets/img";
 
-export default (milestone, isCurrent) => {
+export default (milestone, isCurrent, imgUrl) => {
   return html`
     <div class="milestone">
-      ${isCurrent
-        ? `<img src=${images[milestone.img]} class="milestone-img">`
-        : ``}
+      ${isCurrent ? `<img src=${imgUrl} class="milestone-img">` : ``}
       <div class="info">
         <h3>${milestone.name}</h3>
         <p>${milestone.description}</p>

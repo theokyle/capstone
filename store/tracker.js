@@ -1,3 +1,4 @@
 export default {
-  view: "tracker"
+  view: "tracker",
+  image: ""
 };
