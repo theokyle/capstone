@@ -99,7 +99,17 @@ nav > ul {
 
 .nav-item {
   border-right: 1px solid var(--light-background);
-  padding: 1.1rem;
+  padding: .5em 1em;
+}
+
+.nav-item > a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+i {
+  margin: 5px;
 }
 
 nav > ul:first-child {
