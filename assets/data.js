@@ -19,7 +19,8 @@ export const data = {
         {
           id: 1,
           name: "The High Hay",
-          imgURL: "../assets/img/milestone-img/high-hay.png",
+          tag: "hedgewall",
+          img: "highHay",
           distance: 15000,
           description: `Constantly tended, it was thick and tall, and ran for over twenty miles.
           At the north end the Hay ran down to the river-bank close to the Brandywine Bridge.
@@ -34,7 +35,8 @@ export const data = {
         {
           id: 2,
           name: "The Old Forest",
-          imgURL: "../assets/img/milestone-img/old-forest.png",
+          img: "oldForest",
+          tag: "forest",
           distance: 30000,
           description: `The Old Forest, like Fangorn, was described to be dark and tangled, though
           both were less so than the Taur-im-Duinath of Beleriand. Aside from the trees, a valley
@@ -49,7 +51,8 @@ export const data = {
         {
           id: 3,
           name: "Bree",
-          imgURL: "../assets/img/milestone-img/bree.png",
+          img: "bree",
+          tag: "medieval_village",
           distance: 45000,
           description: `Bree was a town of Men and hobbits, located east of the Shire, north of the
           South Downs, west of Weathertop, and south of Fornost in Eriador. It was also the first of

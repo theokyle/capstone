@@ -2,7 +2,7 @@ import html from "html-literal";
 import { data } from "../assets/data.js";
 import milestone from "../components/milestone.js";
 
-export default () => {
+export default state => {
   //Will refactor at a later stage to get these values from state instead of the data import
   const currentMilestone =
     data.journeys[data.user.activeJourney - 1].milestones[
@@ -22,7 +22,7 @@ export default () => {
         <h1>Journey Tracker</h1>
         <div class="section">
           <h2>Next Milestone Info</h2>
-          ${milestone(currentMilestone, true)}
+          ${milestone(currentMilestone, true, state.image)}
         </div>
 
         <div class="section">
