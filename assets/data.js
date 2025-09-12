@@ -20,7 +20,6 @@ export const data = {
           id: 1,
           name: "The High Hay",
           tag: "hedgewall",
-          img: "highHay",
           distance: 15000,
           description: `Constantly tended, it was thick and tall, and ran for over twenty miles.
           At the north end the Hay ran down to the river-bank close to the Brandywine Bridge.
