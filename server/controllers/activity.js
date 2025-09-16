@@ -1,4 +1,4 @@
-import Activity from "../models/activity.js";
+import Activity from "../models/Activity.js";
 
 export async function handlerGetActivities(req, res) {
   try {
@@ -6,7 +6,7 @@ export async function handlerGetActivities(req, res) {
     const activities = await Activity.find({ userId: userId });
     res.json(activities);
   } catch (error) {
-    return res.status(500).json(error.errors);
+    res.status(500).json(error.errors);
   }
 }
 
@@ -21,12 +21,10 @@ export async function handlerPostActivity(req, res) {
     const data = await activity.save();
     res.status(201).json(data);
   } catch (error) {
-    console.log(error);
-
     if ("name" in error && error.name === "ValidationError")
-      return res.status(400).json(error.errors);
+      res.status(400).json(error.errors);
 
-    return res.status(500).json(error.errors);
+    res.status(500).json(error.errors);
   }
 }
 
@@ -35,8 +33,7 @@ export async function handlerDeleteActivity(req, res) {
     const data = await Activity.findByIdAndDelete(req.params.activityId);
     res.json(data);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json(error.errors);
+    res.status(500).json(error.errors);
   }
 }
 
@@ -61,10 +58,9 @@ export async function handlerUpdateActivity(req, res) {
 
     res.json(data);
   } catch (error) {
-    console.log(error);
     if ("name" in error && error.name === "ValidationError")
-      return res.status(400).json(error.errors);
+      res.status(400).json(error.errors);
 
-    return res.status(500).json(error.errors);
+    res.status(500).json(error.errors);
   }
 }

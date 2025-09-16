@@ -4,12 +4,10 @@ const { Schema } = mongoose;
 
 const progressSchema = new Schema({
   journeyId: { type: Schema.Types.ObjectId, ref: "Journey" },
-  distanceTraveled: Number,
+  distanceTraveled: { type: Number, default: 0 },
   nextMilestone: { type: Schema.Types.ObjectId, ref: "Milestone" },
   milestonesCompleted: [{ type: Schema.Types.ObjectId, ref: "Milestone" }],
-  completed: Boolean,
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
+  completed: { type: Boolean, default: false }
 });
 
 const userSchema = new Schema({
@@ -17,7 +15,7 @@ const userSchema = new Schema({
   email: String,
   totalDistance: Number,
   token: Number,
-  currentJourney: { type: Schema.Types.ObjectId, ref: "Journey" },
+  currentJourney: { type: Schema.Types.ObjectId, ref: "Progress" },
   progress: [progressSchema]
 });
 

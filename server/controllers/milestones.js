@@ -1,4 +1,4 @@
-import Journey from "../models/journeys.js";
+import Journey from "../models/Journey.js";
 
 export async function handlerGetMilestones(req, res) {
   try {
@@ -59,6 +59,22 @@ export async function handlerUpdateMilestone(req, res) {
         }
       }
     );
+
+    res.json(journey.milestones);
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json(error.errors);
+  }
+}
+
+export async function handlerDeleteMilestone(req, res) {
+  try {
+    const journeyId = req.params.journeyId;
+    const milestoneId = req.params.milestoneId;
+
+    const journey = await Journey.findById(journeyId);
+    journey.milestones.id(milestoneId).deleteOne();
 
     res.json(journey.milestones);
   } catch (error) {

@@ -1,4 +1,4 @@
-import User from "../models/users.js";
+import User from "../models/User.js";
 
 export async function authenticateUser(req, res, next) {
   if (!req.headers.authorization) {

@@ -5,6 +5,7 @@ import cors from "cors";
 import journeys from "./routes/journeys.js";
 import users from "./routes/users.js";
 import activities from "./routes/activity.js";
+import progress from "./routes/progress.js";
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.get("/status", (request, response) => {
 app.use("/journeys", journeys);
 app.use("/users", users);
 app.use("/activities", activities);
+app.use("/progress", progress);
 
 //Launch Server
 app.listen(process.env.PORT, () => {

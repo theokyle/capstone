@@ -31,12 +31,17 @@ router.get(
 );
 
 //Add a new milestone
-router.patch("/:journeyId/milestones/", milestones.handlerAddMilestone);
+router.put("/:journeyId/milestones/", milestones.handlerAddMilestone);
 
 //Edit an existing milestone
-router.patch(
+router.put(
   "/:journeyId/milestones/:milestoneId",
   milestones.handlerUpdateMilestone
+);
+
+router.delete(
+  "/:journeyId/milestones/:milestoneId",
+  milestones.handlerDeleteMilestone
 );
 
 export default router;

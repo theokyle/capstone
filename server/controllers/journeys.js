@@ -1,4 +1,4 @@
-import Journey from "../models/journeys.js";
+import Journey from "../models/Journey.js";
 
 export async function handlerGetJourneys(req, res) {
   try {

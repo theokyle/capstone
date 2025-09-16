@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as users from "../controllers/users.js";
+import { handlerLogin } from "../controllers/login.js";
 
 const router = Router();
 
@@ -7,7 +8,7 @@ const router = Router();
 router.post("/", users.handlerPostUser);
 
 //Login a user
-router.post("/login/", users.handlerLogin);
+router.post("/login/", handlerLogin);
 
 //Get users
 router.get("/", users.handlerGetUsers);
