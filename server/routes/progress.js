@@ -9,7 +9,7 @@ router.get("/", progress.handlerGetProgress);
 router.get("/:progressId", progress.handlerGetProgressById);
 router.post("/:journeyId", progress.handlerAddJourneyToProgress);
 router.delete("/:progressId", progress.handlerDeleteProgressItem);
-router.put("/:progressId/currentJourney", progress.handlerSetCurrentJourney);
+router.put("/:progressId/makeActive", progress.handlerMakeActive);
 router.put("/:progressId/addDistance", progress.handlerAddDistance);
 router.put("/:progressId/complete", progress.handlerCompleteJourney);
 

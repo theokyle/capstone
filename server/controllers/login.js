@@ -9,7 +9,7 @@ export async function handlerLogin(req, res) {
       throw new Error("invalid user");
     }
 
-    const token = 1;
+    const token = 17;
     user.token = token;
     await user.save();
 

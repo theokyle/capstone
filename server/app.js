@@ -9,6 +9,7 @@ import progress from "./routes/progress.js";
 
 dotenv.config();
 
+const port = 3000;
 const app = express();
 
 app.use(express.json());
@@ -39,6 +40,6 @@ app.use("/activities", activities);
 app.use("/progress", progress);
 
 //Launch Server
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running at http://localhost:${process.env.PORT}`);
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
 });

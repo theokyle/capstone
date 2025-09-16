@@ -40,8 +40,8 @@ export async function handlerAddJourneyToProgress(req, res) {
 
     const newProgressItem = user.progress.create(progressItem);
 
-    if (user.progress.length == 0) {
-      user.currentJourney = newProgressItem._id;
+    if (!user.activeProgressId) {
+      user.activeProgressId = newProgressItem._id;
     }
 
     user.progress.push(newProgressItem);
@@ -59,11 +59,12 @@ export async function handlerDeleteProgressItem(req, res) {
     const progressId = req.params.progressId;
 
     const user = await User.findById(userId);
-    user.progress.id(progressId).deleteOne();
+    const progressItem = user.progress.id(progressId);
 
-    if (user.currentJourney === progressId) {
-      user.currentJourney = null;
+    if (user.activeProgressId.equals(progressItem._id)) {
+      user.activeProgressId = null;
     }
+    progressItem.deleteOne();
     user.save();
 
     res.json(user.progress);
@@ -72,13 +73,13 @@ export async function handlerDeleteProgressItem(req, res) {
   }
 }
 
-export async function handlerSetCurrentJourney(req, res) {
+export async function handlerMakeActive(req, res) {
   try {
     const userId = req.user._id;
     const progressId = req.params.progressId;
 
     const user = await User.findById(userId);
-    user.currentJourney = progressId;
+    user.activeProgressId = progressId;
     const data = await user.save();
     res.json(data);
   } catch (error) {
