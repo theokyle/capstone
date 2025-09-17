@@ -14,7 +14,7 @@ const userSchema = new Schema({
   username: String,
   email: String,
   totalDistance: Number,
-  token: Number,
+  token: String,
   activeProgressId: { type: Schema.Types.ObjectId, ref: "Progress" },
   progress: [progressSchema]
 });

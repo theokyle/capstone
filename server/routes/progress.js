@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authenticateUser } from "../middleware/auth.js";
+import { authenticateUser } from "../auth/auth.js";
 import * as progress from "../controllers/progress.js";
 
 const router = Router();
