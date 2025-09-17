@@ -1,3 +1,4 @@
 export default {
-  view: "log"
+  view: "log",
+  activities: []
 };
