@@ -35,6 +35,12 @@ router.hooks({
   },
   after: (match) => {
     router.updatePageLinks();
+
+    const view = match?.data?.view ? camelCase(match.data.view) : "home";
+
+    if (view === "tracker") {
+      views.tracker.after();
+    }
   }
 });
 

@@ -146,3 +146,24 @@ export async function handlerAddDistance(req, res) {
     res.status(500).json(error.errors);
   }
 }
+
+export async function handlerResetProgress(req, res) {
+  try {
+    const userId = req.user._id;
+
+    const user = await User.findById(userId);
+    const progress = user.progress.id(user.activeProgressId);
+    const journey = await Journey.findById(progress.journeyId);
+
+    progress.totalDistance = 0;
+    progress.milestoneDistance = 0;
+    progress.milestonesCompleted = [];
+    progress.nextMilestone = journey.milestones[0]._id;
+
+    const resetUser = await user.save();
+    res.json(resetUser);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error.errors);
+  }
+}
