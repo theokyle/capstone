@@ -20,7 +20,7 @@ export async function authenticateUser(req, res, next) {
     req.user = user;
     next();
   } catch (error) {
-    res.status(400).json({ error: "Unable to authenticate user" });
+    res.status(400).json({ error: `Unable to authenticate user: ${error}` });
     return;
   }
 }

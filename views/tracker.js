@@ -1,23 +1,9 @@
 import html from "html-literal";
-import { data } from "../assets/data.js";
 import milestone from "../components/milestone.js";
 import * as store from "../store";
 import axios from "axios";
 
 function render(state) {
-  //Will refactor at a later stage to get these values from state instead of the data import
-  // const currentMilestone =
-  //   data.journeys[data.user.activeJourney - 1].milestones[
-  //     data.user.currentMilestone - 1
-  //   ];
-
-  // const previousMilestones = [];
-  // for (let i = data.user.currentMilestone - 2; i >= 0; i--) {
-  //   previousMilestones.push(
-  //     data.journeys[data.user.activeJourney - 1].milestones[i]
-  //   );
-  // }
-
   return html`
     <main>
       <div class="content">
