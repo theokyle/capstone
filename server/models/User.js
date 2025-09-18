@@ -4,7 +4,8 @@ const { Schema } = mongoose;
 
 const progressSchema = new Schema({
   journeyId: { type: Schema.Types.ObjectId, ref: "Journey" },
-  distanceTraveled: { type: Number, default: 0 },
+  totalDistance: { type: Number, default: 0 },
+  milestoneDistance: { type: Number, default: 0 },
   nextMilestone: { type: Schema.Types.ObjectId, ref: "Milestone" },
   milestonesCompleted: [{ type: Schema.Types.ObjectId, ref: "Milestone" }],
   completed: { type: Boolean, default: false }

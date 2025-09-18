@@ -6,6 +6,7 @@ import journeys from "./routes/journeys.js";
 import users from "./routes/users.js";
 import activities from "./routes/activity.js";
 import progress from "./routes/progress.js";
+import milestones from "./routes/milestones.js";
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.get("/status", (request, response) => {
 
 //routes
 app.use("/journeys", journeys);
+app.use("/milestones", milestones);
 app.use("/users", users);
 app.use("/activities", activities);
 app.use("/progress", progress);
