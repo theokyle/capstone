@@ -6,17 +6,17 @@ import axios from "axios";
 
 function render(state) {
   //Will refactor at a later stage to get these values from state instead of the data import
-  const currentMilestone =
-    data.journeys[data.user.activeJourney - 1].milestones[
-      data.user.currentMilestone - 1
-    ];
+  // const currentMilestone =
+  //   data.journeys[data.user.activeJourney - 1].milestones[
+  //     data.user.currentMilestone - 1
+  //   ];
 
-  const previousMilestones = [];
-  for (let i = data.user.currentMilestone - 2; i >= 0; i--) {
-    previousMilestones.push(
-      data.journeys[data.user.activeJourney - 1].milestones[i]
-    );
-  }
+  // const previousMilestones = [];
+  // for (let i = data.user.currentMilestone - 2; i >= 0; i--) {
+  //   previousMilestones.push(
+  //     data.journeys[data.user.activeJourney - 1].milestones[i]
+  //   );
+  // }
 
   return html`
     <main>
@@ -24,22 +24,30 @@ function render(state) {
         <h1>Journey Tracker</h1>
         <div class="section">
           <h2>Next Milestone Info</h2>
-          ${milestone(currentMilestone, true, state.image)}
+          ${milestone(store.tracker.nextMilestone, true, state.image)}
         </div>
 
-        <div class="section">
+        ${store.tracker.milestonesCompleted.length > 0
+          ? `<div class="section">
           <h2>Milestones Achieved</h2>
-          ${previousMilestones.map(ms => milestone(ms, false))}
-        </div>
+          ${store.tracker.milestonesCompleted.map(ms => milestone(ms, false))}
+        </div>`
+          : ``}
 
         <div class="section">
           <h2>Daily Step Entry</h2>
-          <form>
-            <input type="number" placeholder="# of Steps" id="stepNumber" />
+          <form id="addStep" method="POST">
+            <input
+              type="number"
+              placeholder="# of Steps"
+              name="distance"
+              id="distance"
+            />
             <input
               type="submit"
               value="Add Steps"
-              id="trackerAddSteps"
+              id="submit"
+              name="submit"
               class="button"
             />
           </form>
@@ -49,22 +57,45 @@ function render(state) {
   `;
 }
 
-function before(done) {
-  axios
-    .get(
-      `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_API_KEY}&query=forest`
-    )
-    .then(response => {
-      store.tracker.image = response.data.results[0].urls.small;
-      done();
-    })
-    .catch(error => {
-      console.log("Failed to retrieve image:", error);
-      done();
-    });
+async function before(done) {
+  try {
+    let response = await axios.get(
+      `${process.env.STEPQUEST_API_URL}/progress/active`,
+      {
+        headers: {
+          Authorization: process.env.TEMP_JWT
+        }
+      }
+    );
+
+    store.tracker.nextMilestone = response.data.nextMilestone;
+    store.tracker.milestonesCompleted = response.data.milestonesCompleted;
+
+    response = await axios.get(
+      `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_API_KEY}&query=${store.tracker.nextMilestone.tags[0]}`
+    );
+
+    store.tracker.image = response.data.results[0].urls.small;
+    done();
+  } catch (error) {
+    console.log("Failed to retrieve image:", error);
+    done();
+  }
+}
+
+function after() {
+  document.querySelector("form").addEventListener("submit", event => {
+    event.preventDefault();
+
+    const inputList = event.target.elements;
+
+    const distance = inputList.distance.value;
+    console.log(distance);
+  });
 }
 
 export default {
   render,
-  before
+  before,
+  after
 };

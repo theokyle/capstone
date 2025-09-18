@@ -12,5 +12,6 @@ router.post("/:journeyId", progress.handlerAddJourneyToProgress);
 router.delete("/:progressId", progress.handlerDeleteProgressItem);
 router.put("/:progressId/makeActive", progress.handlerMakeActive);
 router.put("/addDistance", progress.handlerAddDistance);
+router.put("/resetProgress", progress.handlerResetProgress);
 
 export default router;

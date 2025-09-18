@@ -42,6 +42,6 @@ app.use("/activities", activities);
 app.use("/progress", progress);
 
 //Launch Server
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+const server = app.listen(port, () =>
+  console.log(`Listening on Port: ${server.address().port}`)
+);
