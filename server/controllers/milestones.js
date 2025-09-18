@@ -1,10 +1,11 @@
-import Journey from "../models/journeys.js";
+import Milestone from "../models/Milestone.js";
+import Journey from "../models/Journey.js";
 
 export async function handlerGetMilestones(req, res) {
   try {
-    const journeyId = req.params.journeyId;
-    const journey = await Journey.findById(journeyId);
-    res.json(journey.milestones);
+    const query = req.query;
+    const milestones = await Milestone.find(query);
+    res.json(milestones);
   } catch (error) {
     console.log(error);
     return res.status(500).json(error.errors);
@@ -13,10 +14,8 @@ export async function handlerGetMilestones(req, res) {
 
 export async function handlerGetMilestoneById(req, res) {
   try {
-    const journeyId = req.params.journeyId;
     const milestoneId = req.params.milestoneId;
-    const journey = await Journey.findById(journeyId);
-    const milestone = journey.milestones.id(milestoneId);
+    const milestone = await Milestone.findById(milestoneId);
     res.json(milestone);
   } catch (error) {
     console.log(error);
@@ -24,17 +23,28 @@ export async function handlerGetMilestoneById(req, res) {
   }
 }
 
-export async function handlerAddMilestone(req, res) {
+export async function handlerCreateMilestone(req, res) {
   try {
-    const journeyId = req.params.journeyId;
-    const milestoneInfo = req.body;
+    const milestoneInfo = {
+      name: req.body.name,
+      tags: req.body.tags,
+      distance: req.body.distance,
+      description: req.body.description
+    };
 
-    const journey = await Journey.findById(journeyId);
-    const newMilestone = journey.milestones.create(milestoneInfo);
-    journey.milestones.push(newMilestone);
-    await journey.save();
+    const milestone = new Milestone(milestoneInfo);
 
-    res.json(newMilestone);
+    // Allows the new milestone to optionally be added to a journey at its creation
+    if (req.body.journeyId) {
+      const journey = await Journey.findById(req.body.journeyId);
+      journey.milestones.push(milestone._id);
+      journey.totalDistance += milestone.distance;
+      await journey.save();
+    }
+
+    await milestone.save();
+
+    res.json(milestone);
   } catch (error) {
     console.log(error);
 
@@ -44,23 +54,35 @@ export async function handlerAddMilestone(req, res) {
 
 export async function handlerUpdateMilestone(req, res) {
   try {
-    const journeyId = req.params.journeyId;
-    const milestoneId = req.params.milestoneId;
-    const milestoneInfo = req.body;
-
-    const journey = await Journey.findOneAndUpdate(
-      {
-        _id: journeyId,
-        "milestones._id": milestoneId
-      },
+    const milestone = await Milestone.findByIdAndUpdate(
+      req.params.milestoneId,
       {
         $set: {
-          "milestones.$": milestoneInfo
+          name: req.body.name,
+          tags: req.body.tags,
+          distance: req.body.distance,
+          description: req.body.description
         }
+      },
+      {
+        new: true,
+        runValidators: true
       }
     );
 
-    res.json(journey.milestones);
+    res.json(milestone);
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json(error.errors);
+  }
+}
+
+export async function handlerDeleteMilestone(req, res) {
+  try {
+    const milestone = await Milestone.findByIdAndDelete(req.params.milestoneId);
+
+    res.json(milestone);
   } catch (error) {
     console.log(error);
 

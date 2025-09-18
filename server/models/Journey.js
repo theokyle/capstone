@@ -2,19 +2,12 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const milestoneSchema = Schema({
-  name: String,
-  tags: [String],
-  distance: Number,
-  description: String
-});
-
 const journeySchema = new Schema({
   name: String,
   universe: String,
   description: String,
-  totalDistance: Number,
-  milestones: [milestoneSchema]
+  totalDistance: { type: Number, default: 0 },
+  milestones: [{ type: Schema.Types.ObjectId, ref: "Milestone" }]
 });
 
 const Journey = mongoose.model("Journey", journeySchema);

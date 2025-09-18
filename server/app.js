@@ -5,9 +5,12 @@ import cors from "cors";
 import journeys from "./routes/journeys.js";
 import users from "./routes/users.js";
 import activities from "./routes/activity.js";
+import progress from "./routes/progress.js";
+import milestones from "./routes/milestones.js";
 
 dotenv.config();
 
+const port = 3000;
 const app = express();
 
 app.use(express.json());
@@ -33,10 +36,12 @@ app.get("/status", (request, response) => {
 
 //routes
 app.use("/journeys", journeys);
+app.use("/milestones", milestones);
 app.use("/users", users);
 app.use("/activities", activities);
+app.use("/progress", progress);
 
 //Launch Server
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running at http://localhost:${process.env.PORT}`);
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
 });

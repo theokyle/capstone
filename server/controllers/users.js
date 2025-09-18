@@ -1,4 +1,4 @@
-import User from "../models/users.js";
+import User from "../models/User.js";
 
 export async function handlerGetUsers(req, res) {
   try {
@@ -6,33 +6,7 @@ export async function handlerGetUsers(req, res) {
     const users = await User.find(query);
     res.json(users);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json(error.errors);
-  }
-}
-
-export async function handlerLogin(req, res) {
-  try {
-    const email = req.body.email;
-
-    const user = await User.findOne({ email: email });
-    if (!user) {
-      throw new Error("invalid user");
-    }
-
-    const token = Math.floor(Math.random() * 100);
-    user.token = token;
-    await user.save();
-
-    res.json(user);
-  } catch (error) {
-    console.log(error);
-
-    if (error.message === "invalid user") {
-      return res.status(400).json(error.errors);
-    }
-
-    return res.status(500).json(error.errors);
+    res.status(500).json(error.errors);
   }
 }
 
@@ -42,10 +16,9 @@ export async function handlerPostUser(req, res) {
     const data = await user.save();
     res.status(201).json(data);
   } catch (error) {
-    console.log(error);
     if ("name" in error && error.name === "ValidationError")
-      return res.status(400).json(error.errors);
-    return res.status(500).json(error.errors);
+      res.status(400).json(error.errors);
+    res.status(500).json(error.errors);
   }
 }
 
@@ -55,7 +28,7 @@ export async function handlerDeleteUser(req, res) {
     res.json(data);
   } catch (error) {
     console.log(error);
-    return res.status(500).json(error.errors);
+    res.status(500).json(error.errors);
   }
 }
 
@@ -78,10 +51,9 @@ export async function handlerUpdateUser(req, res) {
 
     res.json(data);
   } catch (error) {
-    console.log(error);
     if ("name" in error && error.name === "ValidationError")
-      return res.status(400).json(error.errors);
+      res.status(400).json(error.errors);
 
-    return res.status(500).json(error.errors);
+    res.status(500).json(error.errors);
   }
 }

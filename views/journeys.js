@@ -1,7 +1,7 @@
 import html from "html-literal";
 import { data } from "../assets/data.js";
 
-export default () => {
+function render() {
   const currentMilestone =
     data.journeys[data.user.activeJourney - 1].milestones[
       data.user.currentMilestone - 1
@@ -29,4 +29,8 @@ export default () => {
       </div>
     </main>
   `;
+}
+
+export default {
+  render
 };

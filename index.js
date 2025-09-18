@@ -1,5 +1,6 @@
 import { header, main, footer } from "./components";
 import * as store from "./store";
+import * as views from "./views";
 import Navigo from "navigo";
 import { camelCase } from "lodash";
 import axios from "axios";
@@ -18,16 +19,10 @@ router.hooks({
     const view = match?.data?.view ? camelCase(match.data.view) : "home";
     switch (view) {
       case "tracker":
-        axios
-          .get(`https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_API_KEY}&query=forest`)
-          .then(response => {
-            store.tracker.image = response.data.results[0].urls.small;
-            done();
-          })
-          .catch((error) => {
-            console.log("Failed to retrieve image:", error);
-            done();
-          });
+          views.tracker.before(done);
+          break;
+      case "log":
+          views.log.before(done);
           break;
       default :
         done();

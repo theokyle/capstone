@@ -1,17 +1,17 @@
 import html from "html-literal";
 
-export default steps => {
+export default activities => {
   return html`
     <table class="stepLog">
       <thead>
         <tr>
           <th>Date</th>
-          <th>Steps</th>
+          <th>Distance</th>
         </tr>
       </thead>
       <tbody>
-        ${steps.map(
-          entry => `<tr><td>${entry.date}</td><td>${entry.steps}</td></tr>`
+        ${activities.map(
+          entry => `<tr><td>${entry.date}</td><td>${entry.distance}</td></tr>`
         )}
       </tbody>
     </table>

@@ -1,8 +1,10 @@
 import html from "html-literal";
 import { data } from "../assets/data.js";
 import milestone from "../components/milestone.js";
+import * as store from "../store";
+import axios from "axios";
 
-export default state => {
+function render(state) {
   //Will refactor at a later stage to get these values from state instead of the data import
   const currentMilestone =
     data.journeys[data.user.activeJourney - 1].milestones[
@@ -45,4 +47,24 @@ export default state => {
       </div>
     </main>
   `;
+}
+
+function before(done) {
+  axios
+    .get(
+      `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_API_KEY}&query=forest`
+    )
+    .then(response => {
+      store.tracker.image = response.data.results[0].urls.small;
+      done();
+    })
+    .catch(error => {
+      console.log("Failed to retrieve image:", error);
+      done();
+    });
+}
+
+export default {
+  render,
+  before
 };

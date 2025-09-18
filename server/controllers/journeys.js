@@ -1,9 +1,10 @@
-import Journey from "../models/journeys.js";
+import Journey from "../models/Journey.js";
+import Milestone from "../models/Milestone.js";
 
 export async function handlerGetJourneys(req, res) {
   try {
     const query = req.query;
-    const journeys = await Journey.find(query);
+    const journeys = await Journey.find(query).populate("milestones");
     res.json(journeys);
   } catch (error) {
     console.log(error);
@@ -22,7 +23,7 @@ export async function handlerGetJourneyById(req, res) {
   }
 }
 
-export async function handlerPostJourney(req, res) {
+export async function handlerCreateJourney(req, res) {
   try {
     const newJourney = new Journey(req.body);
     const data = await newJourney.save();
@@ -54,8 +55,7 @@ export async function handlerUpdateJourney(req, res) {
         $set: {
           name: body.name,
           universe: body.universe,
-          description: body.description,
-          totalDistance: body.totalDistance
+          description: body.description
         }
       },
       {
@@ -69,6 +69,36 @@ export async function handlerUpdateJourney(req, res) {
     console.log(error);
     if ("name" in error && error.name === "ValidationError")
       return res.status(400).json(error.errors);
+
+    return res.status(500).json(error.errors);
+  }
+}
+
+export async function handlerGetJourneyMilestones(req, res) {
+  try {
+    const journeyId = req.params.journeyId;
+    const journey = await Journey.findById(journeyId).populate("milestones");
+    res.json(journey.milestones);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error.errors);
+  }
+}
+
+export async function handlerAddMilestone(req, res) {
+  try {
+    const journeyId = req.params.journeyId;
+    const milestoneId = req.params.milestoneId;
+
+    const journey = await Journey.findById(journeyId);
+    const milestone = await Milestone.findById(milestoneId);
+    journey.milestones.push(milestone._id);
+    journey.totalDistance += milestone.distance;
+    await journey.save();
+
+    res.json(journey);
+  } catch (error) {
+    console.log(error);
 
     return res.status(500).json(error.errors);
   }
