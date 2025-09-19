@@ -1,5 +1,6 @@
 import Journey from "../models/Journey.js";
 import Milestone from "../models/Milestone.js";
+import User from "../models/User.js";
 
 export async function handlerGetJourneys(req, res) {
   try {
@@ -25,7 +26,26 @@ export async function handlerGetJourneyById(req, res) {
 
 export async function handlerCreateJourney(req, res) {
   try {
+    const userId = req.user._id;
     const newJourney = new Journey(req.body);
+
+    // add journey to the user that created it
+    const user = await User.findById(userId);
+    const defaultMilestone = await Milestone.findById(
+      process.env.DEFAULT_MILESTONE
+    );
+    const progressItem = {
+      journeyId: newJourney._id,
+      totalDistance: 0,
+      nextMilestone: defaultMilestone._id,
+      milestonesCompleted: [],
+      completed: false
+    };
+
+    const newProgressItem = user.progress.create(progressItem);
+    user.progress.push(newProgressItem);
+    await user.save();
+
     const data = await newJourney.save();
     res.status(201).json(data);
   } catch (error) {

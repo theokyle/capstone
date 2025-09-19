@@ -2,16 +2,19 @@ import html from "html-literal";
 import axios from "axios";
 import * as store from "../store/index.js";
 import journeyForm from "../components/newJourney/journeyForm.js";
-import milestoneForm from "../components/newJourney/milestoneForm.js";
 import journeyData from "../components/newJourney/journeyData.js";
+import milestoneDisplay from "../components/newJourney/milestoneDisplay.js";
 
 function render(state) {
+  console.log("index: ", state.index);
+  console.log("milestones: ", state.milestones);
+
   return html`
     <main>
       <div class="content">
         ${state.currentJourney
           ? `${journeyData(state.currentJourney)}
-            ${milestoneForm()}`
+            ${milestoneDisplay(state.milestones, state.index)}`
           : journeyForm()}
       </div>
     </main>
@@ -36,7 +39,11 @@ async function after(router) {
       };
 
       axios
-        .post(`${process.env.STEPQUEST_API_URL}/journeys`, requestData)
+        .post(`${process.env.STEPQUEST_API_URL}/journeys`, requestData, {
+          headers: {
+            Authorization: process.env.TEMP_JWT
+          }
+        })
         .then(response => {
           store.createJourney.currentJourney = response.data;
           router.resolve();
@@ -54,7 +61,7 @@ async function after(router) {
         const inputList = event.target.elements;
 
         const response = await axios.get(
-          `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_API_KEY}&query=${store.tracker.nextMilestone.tag}`
+          `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_API_KEY}&query=${inputList.tag.value}`
         );
 
         const requestData = {
@@ -73,6 +80,24 @@ async function after(router) {
             router.resolve();
           })
           .catch(error => console.log("Error creating journey: ", error));
+      });
+  }
+
+  if (document.getElementById("previousMilestoneBtn")) {
+    document
+      .getElementById("previousMilestoneBtn")
+      .addEventListener("click", () => {
+        store.createJourney.index -= 1;
+        router.resolve();
+      });
+  }
+
+  if (document.getElementById("nextMilestoneBtn")) {
+    document
+      .getElementById("nextMilestoneBtn")
+      .addEventListener("click", () => {
+        store.createJourney.index += 1;
+        router.resolve();
       });
   }
 }

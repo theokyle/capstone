@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { authenticateUser } from "../auth/auth.js";
 import * as journeys from "../controllers/journeys.js";
 
 const router = Router();
@@ -7,7 +8,7 @@ const router = Router();
 
 router.get("/", journeys.handlerGetJourneys);
 router.get("/:journeyId", journeys.handlerGetJourneyById);
-router.post("/", journeys.handlerCreateJourney);
+router.post("/", authenticateUser, journeys.handlerCreateJourney);
 router.delete("/:journeyId", journeys.handlerDeleteJourney);
 router.put("/:id", journeys.handlerUpdateJourney);
 router.get("/:journeyId/milestones", journeys.handlerGetJourneyMilestones);
