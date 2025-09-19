@@ -39,7 +39,7 @@ router.hooks({
     const view = match?.data?.view ? camelCase(match.data.view) : "home";
 
     if (view === "tracker") {
-      views.tracker.after();
+      views.tracker.after(router);
     }
   }
 });
@@ -48,7 +48,7 @@ router.on({
   "/": () => render(),
   '/:view': function(match) {
     const view = match?.data?.view ? camelCase(match.data.view) : "home";
-
+    console.log("Router: ", view);
     render(store[view]);
   }
 }).resolve();

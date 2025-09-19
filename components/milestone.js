@@ -7,6 +7,9 @@ export default (milestone, isCurrent, imgUrl) => {
       ${isCurrent ? `<img src=${imgUrl} class="milestone-img">` : ``}
       <div class="info">
         <h3>${milestone.name}</h3>
+        ${isCurrent
+          ? `<h4>Total distance to next milestone: ${milestone.distance}</h4>`
+          : ``}
         <p>${milestone.description}</p>
       </div>
     </div>

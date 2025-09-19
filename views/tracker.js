@@ -69,14 +69,32 @@ async function before(done) {
   }
 }
 
-function after() {
+async function after(router) {
   document.querySelector("form").addEventListener("submit", event => {
     event.preventDefault();
 
     const inputList = event.target.elements;
 
-    const distance = inputList.distance.value;
-    console.log(distance);
+    const requestData = {
+      distance: inputList.distance.value
+    };
+
+    axios
+      .put(
+        `${process.env.STEPQUEST_API_URL}/progress/addDistance`,
+        requestData,
+        {
+          headers: {
+            Authorization: process.env.TEMP_JWT
+          }
+        }
+      )
+      .then(() => {
+        window.location.reload(true);
+      })
+      .catch(error => {
+        console.log("Error adding steps: ", error);
+      });
   });
 }
 
