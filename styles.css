@@ -33,6 +33,10 @@ body {
   min-height: 100vh;
 }
 
+.section {
+  min-height: 250px;
+}
+
 .content, .hero, footer {
   padding-left: 15%;
   padding-top: 2%;
@@ -76,6 +80,10 @@ nav > ul:first-child {
 /* Mobile */
 
 @media (max-width: 500px) {
+
+.section {
+  min-height: 200px;
+}
 .sidebar {
   position: fixed;
   bottom: 0;
@@ -255,7 +263,7 @@ img {
   margin: 2%;
   width: 90%;
   background-color: var(--accent-background);
-  color: var(--dark-text)
+  color: var(--dark-text);
 }
 
 .milestone-img {
@@ -302,4 +310,18 @@ th {
 #inner {
   height: 18px;
   background-color: #dda15e;
+}
+
+.milestone-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 3%;
+  margin: 2%;
+  width: 90%;
+  background-color: var(--accent-background);
+  color: var(--dark-text)
 }

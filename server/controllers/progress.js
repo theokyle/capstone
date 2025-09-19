@@ -85,7 +85,11 @@ export async function handlerDeleteProgressItem(req, res) {
     const userId = req.user._id;
     const progressId = req.params.progressId;
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userId)
+      .populate("progress")
+      .populate("progress.journeyId")
+      .populate("progress.nextMilestone")
+      .populate("progress.milestonesCompleted");
     const progressItem = user.progress.id(progressId);
 
     if (user.activeProgressId.equals(progressItem._id)) {
@@ -107,7 +111,9 @@ export async function handlerMakeActive(req, res) {
 
     const user = await User.findById(userId);
     user.activeProgressId = progressId;
-    const data = await user.save();
+    await user.save();
+
+    const data = user.progress.id(user.activeProgressId);
     res.json(data);
   } catch (error) {
     res.status(500).json(error.errors);
@@ -117,7 +123,7 @@ export async function handlerMakeActive(req, res) {
 export async function handlerAddDistance(req, res) {
   try {
     const userId = req.user._id;
-    const distance = req.body.distance;
+    const distance = parseInt(req.body.distance);
 
     const user = await User.findById(userId);
     const progress = user.progress.id(user.activeProgressId);

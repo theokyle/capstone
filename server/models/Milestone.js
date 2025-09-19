@@ -4,7 +4,8 @@ const { Schema } = mongoose;
 
 const milestoneSchema = Schema({
   name: String,
-  tags: [String],
+  tag: String,
+  imgUrl: String,
   distance: Number,
   description: String
 });

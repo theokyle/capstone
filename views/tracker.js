@@ -10,33 +10,34 @@ function render(state) {
         <h1>Journey Tracker</h1>
         <div class="section">
           <h2>Next Milestone Info</h2>
-          ${milestone(store.tracker.nextMilestone, true, state.image)}
+          ${milestone(state.nextMilestone, true)}
         </div>
 
-        ${store.tracker.milestonesCompleted.length > 0
+        ${state.milestonesCompleted.length > 0
           ? `<div class="section">
           <h2>Milestones Achieved</h2>
-          ${store.tracker.milestonesCompleted.map(ms => milestone(ms, false))}
+          ${state.milestonesCompleted.map(ms => milestone(ms, false)).join("")}
         </div>`
-          : ``}
+          : ""}
 
         <div class="section">
-          <h2>Daily Step Entry</h2>
+          <h2>Add Distance</h2>
           <form id="addStep" method="POST">
             <input
               type="number"
-              placeholder="# of Steps"
+              placeholder="Distance traveled..."
               name="distance"
               id="distance"
             />
             <input
               type="submit"
-              value="Add Steps"
+              value="Submit"
               id="submit"
               name="submit"
               class="button"
             />
           </form>
+          <button id="reset" class="button">Reset Progress</button>
         </div>
       </div>
     </main>
@@ -56,27 +57,50 @@ async function before(done) {
 
     store.tracker.nextMilestone = response.data.nextMilestone;
     store.tracker.milestonesCompleted = response.data.milestonesCompleted;
-
-    response = await axios.get(
-      `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_API_KEY}&query=${store.tracker.nextMilestone.tags[0]}`
-    );
-
-    store.tracker.image = response.data.results[0].urls.small;
     done();
   } catch (error) {
-    console.log("Failed to retrieve image:", error);
+    console.log(error);
     done();
   }
 }
 
-function after() {
+async function after(router) {
   document.querySelector("form").addEventListener("submit", event => {
     event.preventDefault();
 
     const inputList = event.target.elements;
 
-    const distance = inputList.distance.value;
-    console.log(distance);
+    const requestData = {
+      distance: inputList.distance.value
+    };
+
+    axios
+      .put(
+        `${process.env.STEPQUEST_API_URL}/progress/addDistance`,
+        requestData,
+        {
+          headers: {
+            Authorization: process.env.TEMP_JWT
+          }
+        }
+      )
+      .then(() => {
+        router.resolve();
+      })
+      .catch(error => {
+        console.log("Error adding steps: ", error);
+      });
+  });
+
+  document.getElementById("reset").addEventListener("click", event => {
+    axios
+      .put(`${process.env.STEPQUEST_API_URL}/progress/resetProgress`, "", {
+        headers: {
+          Authorization: process.env.TEMP_JWT
+        }
+      })
+      .then(() => router.resolve())
+      .catch(error => console.log("Error resetting progress: ", error));
   });
 }
 

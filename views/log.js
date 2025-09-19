@@ -1,5 +1,4 @@
 import html from "html-literal";
-import { data } from "../assets/data.js";
 import activityLog from "../components/activityLog.js";
 import axios from "axios";
 import * as store from "../store";
@@ -44,7 +43,10 @@ function before(done) {
     });
 }
 
+function after(router) {}
+
 export default {
   render,
-  before
+  before,
+  after
 };

@@ -1,3 +1,5 @@
 export default {
-  view: "createJourney"
+  view: "createJourney",
+  milestones: [],
+  index: 0
 };
