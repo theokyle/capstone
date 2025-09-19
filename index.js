@@ -17,6 +17,7 @@ function render(state = store.home) {
 router.hooks({
   before: (done, match) => {
     const view = match?.data?.view ? camelCase(match.data.view) : "home";
+
     switch (view) {
       case "tracker":
           views.tracker.before(done);
@@ -24,14 +25,22 @@ router.hooks({
       case "log":
           views.log.before(done);
           break;
+      case "journeys":
+          views.journeys.before(done);
+          break;
       default :
         done();
     }
   },
-  already: (match) => {
-    const view = match?.data?.view ? camelCase(match.data.view) : "home";
-
-    render(store[view]);
+  already: async (match) => {
+  const view = match?.data?.view ? camelCase(match.data.view) : "home";
+  if (view === "tracker") {
+     await new Promise(res => views.tracker.before(res));
+   }
+   render(store[view]);
+   if (view === "tracker") {
+     views.tracker.after(router);
+   }
   },
   after: (match) => {
     router.updatePageLinks();
@@ -48,7 +57,6 @@ router.on({
   "/": () => render(),
   '/:view': function(match) {
     const view = match?.data?.view ? camelCase(match.data.view) : "home";
-    console.log("Router: ", view);
     render(store[view]);
   }
 }).resolve();

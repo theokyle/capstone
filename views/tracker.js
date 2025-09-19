@@ -16,9 +16,11 @@ function render(state) {
         ${store.tracker.milestonesCompleted.length > 0
           ? `<div class="section">
           <h2>Milestones Achieved</h2>
-          ${store.tracker.milestonesCompleted.map(ms => milestone(ms, false))}
+          ${store.tracker.milestonesCompleted
+            .map(ms => milestone(ms, false))
+            .join("")}
         </div>`
-          : ``}
+          : ""}
 
         <div class="section">
           <h2>Daily Step Entry</h2>
@@ -37,6 +39,7 @@ function render(state) {
               class="button"
             />
           </form>
+          <button id="reset" class="button">Reset Progress</button>
         </div>
       </div>
     </main>
@@ -64,7 +67,7 @@ async function before(done) {
     store.tracker.image = response.data.results[0].urls.small;
     done();
   } catch (error) {
-    console.log("Failed to retrieve image:", error);
+    console.log(error);
     done();
   }
 }
@@ -90,11 +93,22 @@ async function after(router) {
         }
       )
       .then(() => {
-        window.location.reload(true);
+        router.resolve();
       })
       .catch(error => {
         console.log("Error adding steps: ", error);
       });
+  });
+
+  document.getElementById("reset").addEventListener("click", event => {
+    axios
+      .put(`${process.env.STEPQUEST_API_URL}/progress/resetProgress`, "", {
+        headers: {
+          Authorization: process.env.TEMP_JWT
+        }
+      })
+      .then(() => router.resolve())
+      .catch(error => console.log("Error resetting progress: ", error));
   });
 }
 

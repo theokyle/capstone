@@ -117,7 +117,7 @@ export async function handlerMakeActive(req, res) {
 export async function handlerAddDistance(req, res) {
   try {
     const userId = req.user._id;
-    const distance = req.body.distance;
+    const distance = parseInt(req.body.distance);
 
     const user = await User.findById(userId);
     const progress = user.progress.id(user.activeProgressId);
