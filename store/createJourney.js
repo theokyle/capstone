@@ -1,3 +1,4 @@
 export default {
-  view: "createJourney"
+  view: "createJourney",
+  currentJourney: {}
 };
