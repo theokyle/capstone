@@ -37,7 +37,48 @@ async function before(done) {
   }
 }
 
-function after(router) {}
+function after(router) {
+  if (document.querySelectorAll(".makeActive")) {
+    document.querySelectorAll(".makeActive").forEach(button =>
+      button.addEventListener("click", event => {
+        const progressId = event.target.value;
+
+        axios
+          .put(
+            `${process.env.STEPQUEST_API_URL}/progress/${progressId}/makeActive`,
+            "",
+            {
+              headers: {
+                Authorization: process.env.TEMP_JWT
+              }
+            }
+          )
+          .then(() => {
+            router.navigate("/tracker");
+          });
+      })
+    );
+  }
+
+  if (document.querySelectorAll(".deleteJourney")) {
+    document.querySelectorAll(".deleteJourney").forEach(button =>
+      button.addEventListener("click", event => {
+        const progressId = event.target.value;
+
+        axios
+          .delete(`${process.env.STEPQUEST_API_URL}/progress/${progressId}`, {
+            headers: {
+              Authorization: process.env.TEMP_JWT
+            }
+          })
+          .then(response => {
+            store.journeys.journeys = response.data;
+            router.resolve();
+          });
+      })
+    );
+  }
+}
 
 export default {
   render,

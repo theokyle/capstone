@@ -7,7 +7,7 @@ export default (milestone, isCurrent) => {
       <div class="info">
         <h3>${milestone.name}</h3>
         ${isCurrent
-          ? `<h4>Total distance to next milestone: ${milestone.distance}</h4>`
+          ? `<h4>Total distance to next milestone: ${milestone.distance} miles</h4>`
           : ""}
         <p>${milestone.description}</p>
       </div>

@@ -34,6 +34,9 @@ export async function handlerCreateJourney(req, res) {
     const defaultMilestone = await Milestone.findById(
       process.env.DEFAULT_MILESTONE
     );
+
+    newJourney.milestones.push(defaultMilestone);
+
     const progressItem = {
       journeyId: newJourney._id,
       totalDistance: 0,

@@ -6,9 +6,6 @@ import journeyData from "../components/newJourney/journeyData.js";
 import milestoneDisplay from "../components/newJourney/milestoneDisplay.js";
 
 function render(state) {
-  console.log("index: ", state.index);
-  console.log("milestones: ", state.milestones);
-
   return html`
     <main>
       <div class="content">
@@ -16,6 +13,9 @@ function render(state) {
           ? `${journeyData(state.currentJourney)}
             ${milestoneDisplay(state.milestones, state.index)}`
           : journeyForm()}
+        <button class="button" id="complete">
+          ${state.currentJourney ? "Finish Journey" : "Back to Journeys"}
+        </button>
       </div>
     </main>
   `;
@@ -26,6 +26,10 @@ async function before(done) {
 }
 
 async function after(router) {
+  document.getElementById("complete").addEventListener("click", () => {
+    router.navigate("/journeys");
+  });
+
   if (document.getElementById("journeyForm")) {
     document.getElementById("journeyForm").addEventListener("submit", event => {
       event.preventDefault();
@@ -64,10 +68,12 @@ async function after(router) {
           `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_API_KEY}&query=${inputList.tag.value}`
         );
 
+        let image = response.data.results[0].urls.small;
+
         const requestData = {
           name: inputList.milestoneName.value,
           tag: inputList.tag.value,
-          imgUrl: response.data.results[0].urls.small,
+          imgUrl: image,
           distance: inputList.distance.value,
           description: inputList.milestoneDescription.value,
           journeyId: store.createJourney.currentJourney._id

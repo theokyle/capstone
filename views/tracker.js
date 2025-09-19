@@ -21,17 +21,17 @@ function render(state) {
           : ""}
 
         <div class="section">
-          <h2>Daily Step Entry</h2>
+          <h2>Add Distance</h2>
           <form id="addStep" method="POST">
             <input
               type="number"
-              placeholder="# of Steps"
+              placeholder="Distance traveled..."
               name="distance"
               id="distance"
             />
             <input
               type="submit"
-              value="Add Steps"
+              value="Submit"
               id="submit"
               name="submit"
               class="button"

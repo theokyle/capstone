@@ -17,6 +17,14 @@ export default progress => {
           ${currentProgress}%
         </div>
       </div>
+      <div class="buttonDisplay">
+        <button class="button makeActive" value="${progress._id}">
+          Make Active Journey
+        </button>
+        <button class="button deleteJourney" value="${progress._id}">
+          Remove Journey
+        </button>
+      </div>
     </div>
   `;
 };

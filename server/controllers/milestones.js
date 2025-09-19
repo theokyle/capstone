@@ -61,6 +61,7 @@ export async function handlerUpdateMilestone(req, res) {
         $set: {
           name: req.body.name,
           tag: req.body.tag,
+          imgUrl: req.body.imgUrl,
           distance: req.body.distance,
           description: req.body.description
         }
