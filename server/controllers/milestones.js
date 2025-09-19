@@ -27,7 +27,8 @@ export async function handlerCreateMilestone(req, res) {
   try {
     const milestoneInfo = {
       name: req.body.name,
-      tags: req.body.tags,
+      tag: req.body.tag,
+      imgUrl: req.body.imgUrl,
       distance: req.body.distance,
       description: req.body.description
     };
@@ -59,7 +60,7 @@ export async function handlerUpdateMilestone(req, res) {
       {
         $set: {
           name: req.body.name,
-          tags: req.body.tags,
+          tag: req.body.tag,
           distance: req.body.distance,
           description: req.body.description
         }

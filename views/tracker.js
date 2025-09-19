@@ -10,15 +10,13 @@ function render(state) {
         <h1>Journey Tracker</h1>
         <div class="section">
           <h2>Next Milestone Info</h2>
-          ${milestone(store.tracker.nextMilestone, true, state.image)}
+          ${milestone(state.nextMilestone, true)}
         </div>
 
-        ${store.tracker.milestonesCompleted.length > 0
+        ${state.milestonesCompleted.length > 0
           ? `<div class="section">
           <h2>Milestones Achieved</h2>
-          ${store.tracker.milestonesCompleted
-            .map(ms => milestone(ms, false))
-            .join("")}
+          ${state.milestonesCompleted.map(ms => milestone(ms, false)).join("")}
         </div>`
           : ""}
 
@@ -59,12 +57,6 @@ async function before(done) {
 
     store.tracker.nextMilestone = response.data.nextMilestone;
     store.tracker.milestonesCompleted = response.data.milestonesCompleted;
-
-    response = await axios.get(
-      `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_API_KEY}&query=${store.tracker.nextMilestone.tags[0]}`
-    );
-
-    store.tracker.image = response.data.results[0].urls.small;
     done();
   } catch (error) {
     console.log(error);

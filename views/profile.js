@@ -17,6 +17,14 @@ function render() {
   `;
 }
 
+function before(done) {
+  done();
+}
+
+function after(router) {}
+
 export default {
-  render
+  render,
+  before,
+  after
 };

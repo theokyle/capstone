@@ -37,7 +37,10 @@ async function before(done) {
   }
 }
 
+function after(router) {}
+
 export default {
   render,
-  before
+  before,
+  after
 };
