@@ -9,7 +9,7 @@ function render(state) {
       <div class="content">
         <h1>Journey Tracker</h1>
         <div class="section">
-          <h2>Next Milestone Info</h2>
+          <h2>${state.journeyName}</h2>
           ${milestone(state.nextMilestone, true)}
         </div>
 
@@ -54,7 +54,7 @@ async function before(done) {
         }
       }
     );
-
+    store.tracker.journeyName = response.data.journeyId.name;
     store.tracker.nextMilestone = response.data.nextMilestone;
     store.tracker.milestonesCompleted = response.data.milestonesCompleted;
     done();
