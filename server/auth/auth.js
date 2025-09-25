@@ -1,8 +1,9 @@
 import User from "../models/User.js";
-import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 dotenv.config();
+
 const secret = process.env.JWT_SECRET;
 
 export async function authenticateUser(req, res, next) {
@@ -40,10 +41,10 @@ export async function handlerLogin(req, res) {
       algorithm: "HS256"
     });
     user.token = token;
-    await user.save();
+    const data = await user.save();
 
     //Respond with the created token
-    res.json(token);
+    res.json(data);
   } catch (error) {
     if (error.message === "invalid user") {
       res.status(400).json(error.errors);

@@ -1,3 +1,5 @@
 export default {
-  view: "profile"
+  view: "profile",
+  email: "",
+  token: ""
 };
