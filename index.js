@@ -17,7 +17,11 @@ function render(state = store.home) {
 router.hooks({
   before: (done, match) => {
     const view = match?.data?.view ? camelCase(match.data.view) : "home";
+    if(store.profile.token) {
     views[view].before(done);
+    } else(
+      done()
+    )
   },
   already: async (match) => {
   router.updatePageLinks();
@@ -41,6 +45,7 @@ router.on({
   "/": () => render(),
   '/:view': function(match) {
     const view = match?.data?.view ? camelCase(match.data.view) : "home";
+
     render(store[view]);
   }
 }).resolve();

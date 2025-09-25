@@ -10,7 +10,9 @@ function render(state) {
     <main>
       <div class="content">
         ${state.currentJourney
-          ? `${journeyData(state.currentJourney)}
+          ? `<div class="section">
+          ${journeyData(state.currentJourney)}
+          </div>
             ${milestoneDisplay(state.milestones, state.index)}`
           : journeyForm()}
         <button class="button" id="complete">

@@ -29,8 +29,7 @@ function before(done) {
   axios
     .get(`${process.env.STEPQUEST_API_URL}/activities`, {
       headers: {
-        Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGM0NmY0ODU4MmYwNmZhMmFiOTI5ODUiLCJpYXQiOjE3NTgxMzQ1Mzd9.-lj0uww25CKRS-kHePNrHeCg_Mli-aoIDhBNtBJPNQM"
+        Authorization: store.profile.token
       }
     })
     .then(response => {

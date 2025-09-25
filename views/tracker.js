@@ -50,13 +50,15 @@ async function before(done) {
       `${process.env.STEPQUEST_API_URL}/progress/active`,
       {
         headers: {
-          Authorization: process.env.TEMP_JWT
+          Authorization: store.profile.token
         }
       }
     );
-    store.tracker.journeyName = response.data.journeyId.name;
-    store.tracker.nextMilestone = response.data.nextMilestone;
-    store.tracker.milestonesCompleted = response.data.milestonesCompleted;
+    if (response.data) {
+      store.tracker.journeyName = response.data.journeyId.name;
+      store.tracker.nextMilestone = response.data.nextMilestone;
+      store.tracker.milestonesCompleted = response.data.milestonesCompleted;
+    }
     done();
   } catch (error) {
     console.log(error);
@@ -80,7 +82,7 @@ async function after(router) {
         requestData,
         {
           headers: {
-            Authorization: process.env.TEMP_JWT
+            Authorization: store.profile.token
           }
         }
       )
