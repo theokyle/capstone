@@ -11,7 +11,9 @@ function render(state) {
 
         <div class="section">
           <h2>Daily activities</h2>
-          ${activityLog(state.activities)}
+          ${state.activities.length == 0
+            ? `<p>You do not have any activities logged yet!</p>`
+            : `${activityLog(state.activities)}`}
         </div>
         <form class="hidden" id="addStepForm">
           <label for="stepDate">Date </label>
@@ -29,8 +31,7 @@ function before(done) {
   axios
     .get(`${process.env.STEPQUEST_API_URL}/activities`, {
       headers: {
-        Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGM0NmY0ODU4MmYwNmZhMmFiOTI5ODUiLCJpYXQiOjE3NTgxMzQ1Mzd9.-lj0uww25CKRS-kHePNrHeCg_Mli-aoIDhBNtBJPNQM"
+        Authorization: store.profile.token
       }
     })
     .then(response => {

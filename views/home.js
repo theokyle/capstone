@@ -1,4 +1,6 @@
 import html from "html-literal";
+import * as store from "../store";
+import axios from "axios";
 
 function render() {
   return html`
@@ -59,7 +61,26 @@ function before(done) {
   done();
 }
 
-function after(router) {}
+function after(router) {
+  document.querySelector("form").addEventListener("submit", event => {
+    event.preventDefault;
+
+    const requestData = {
+      email: event.target.elements.email.value
+    };
+
+    axios
+      .post(`${process.env.STEPQUEST_API_URL}/users/`, requestData)
+      .then(response => {
+        store.profile.token = response.data.token;
+        store.profile.email = response.data.email;
+        router.navigate("/tracker");
+      })
+      .catch(error => {
+        console.log("Error creating user", error);
+      });
+  });
+}
 
 export default {
   render,

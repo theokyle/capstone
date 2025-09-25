@@ -1,4 +1,10 @@
 import User from "../models/User.js";
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+
+dotenv.config();
+
+const secret = process.env.JWT_SECRET;
 
 export async function handlerGetUsers(req, res) {
   try {
@@ -13,9 +19,17 @@ export async function handlerGetUsers(req, res) {
 export async function handlerPostUser(req, res) {
   try {
     const user = new User(req.body);
+
+    //login the newly created user
+    const token = jwt.sign({ userId: user.id }, secret, {
+      algorithm: "HS256"
+    });
+    user.token = token;
+
     const data = await user.save();
     res.status(201).json(data);
   } catch (error) {
+    console.log(error);
     if ("name" in error && error.name === "ValidationError")
       res.status(400).json(error.errors);
     res.status(500).json(error.errors);

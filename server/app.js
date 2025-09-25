@@ -45,3 +45,5 @@ app.use("/progress", progress);
 const server = app.listen(port, () =>
   console.log(`Listening on Port: ${server.address().port}`)
 );
+
+export default app;

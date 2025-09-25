@@ -9,9 +9,14 @@ function render(state) {
       <div class="content">
         <h1>Journeys</h1>
         ${state.journeys.map(progress => journey(progress)).join("")}
-        <a href="/createJourney" data-navigo
-          ><button class="button">Create Journey</button></a
-        >
+        <div>
+          <a href="/journeySearch" data-navigo
+            ><button class="button">Find a Journey</button></a
+          >
+          <a href="/createJourney" data-navigo
+            ><button class="button">Create Journey</button></a
+          >
+        </div>
       </div>
     </main>
   `;
@@ -23,7 +28,7 @@ async function before(done) {
       `${process.env.STEPQUEST_API_URL}/progress`,
       {
         headers: {
-          Authorization: process.env.TEMP_JWT
+          Authorization: store.profile.token
         }
       }
     );
@@ -49,7 +54,7 @@ function after(router) {
             "",
             {
               headers: {
-                Authorization: process.env.TEMP_JWT
+                Authorization: store.profile.token
               }
             }
           )
@@ -68,12 +73,12 @@ function after(router) {
         axios
           .delete(`${process.env.STEPQUEST_API_URL}/progress/${progressId}`, {
             headers: {
-              Authorization: process.env.TEMP_JWT
+              Authorization: store.profile.token
             }
           })
           .then(response => {
             store.journeys.journeys = response.data;
-            router.resolve();
+            router.navigate("/journeys");
           });
       })
     );

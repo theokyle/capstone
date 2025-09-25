@@ -9,8 +9,13 @@ function render(state) {
       <div class="content">
         <h1>Journey Tracker</h1>
         <div class="section">
-          <h2>${state.journeyName}</h2>
-          ${milestone(state.nextMilestone, true)}
+          ${state.journeyName
+            ? `<h2>${state.journeyName}</h2>
+          ${milestone(state.nextMilestone, true)}`
+            : `<h2>Your Journey Begins</h2>
+          <p>You have do not currently have an active journey. It's time to find a new journey or create
+          one of your own!</p>
+          <a href="/journeys" data-navigo><button class="button">Find a Journey</button></a>`}
         </div>
 
         ${state.milestonesCompleted.length > 0
@@ -50,13 +55,15 @@ async function before(done) {
       `${process.env.STEPQUEST_API_URL}/progress/active`,
       {
         headers: {
-          Authorization: process.env.TEMP_JWT
+          Authorization: store.profile.token
         }
       }
     );
-    store.tracker.journeyName = response.data.journeyId.name;
-    store.tracker.nextMilestone = response.data.nextMilestone;
-    store.tracker.milestonesCompleted = response.data.milestonesCompleted;
+    if (response.data) {
+      store.tracker.journeyName = response.data.journeyId.name;
+      store.tracker.nextMilestone = response.data.nextMilestone;
+      store.tracker.milestonesCompleted = response.data.milestonesCompleted;
+    }
     done();
   } catch (error) {
     console.log(error);
@@ -80,7 +87,7 @@ async function after(router) {
         requestData,
         {
           headers: {
-            Authorization: process.env.TEMP_JWT
+            Authorization: store.profile.token
           }
         }
       )
@@ -96,7 +103,7 @@ async function after(router) {
     axios
       .put(`${process.env.STEPQUEST_API_URL}/progress/resetProgress`, "", {
         headers: {
-          Authorization: process.env.TEMP_JWT
+          Authorization: store.profile.token
         }
       })
       .then(() => router.resolve())
