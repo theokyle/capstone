@@ -7,7 +7,6 @@ function render(state) {
     <main>
       <div class="content">
         <h1>User Profile</h1>
-
         <div class="section">
           ${state.token
             ? `<h2>User</h2>
@@ -15,6 +14,7 @@ function render(state) {
           <button id="logout" class="button">Logout</button>`
             : `
           <h3>Please Login or Register a New Account</h3>
+          <div id="message"></div>
           <form id="login" method="POST">
             <div>
           <label for="userEmail">Email:</label>
@@ -73,11 +73,18 @@ function after(router) {
             router.navigate("/tracker");
           })
           .catch(error => {
+            displayMessage("Unable to Sign In. Email not found.", "red");
             console.log("Error logging in", error);
           });
       }
     });
   }
+}
+
+function displayMessage(message, color) {
+  const messageElement = document.getElementById("message");
+  messageElement.innerHTML = message;
+  messageElement.style.color = color;
 }
 
 export default {

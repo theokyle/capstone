@@ -11,7 +11,9 @@ function render(state) {
 
         <div class="section">
           <h2>Daily activities</h2>
-          ${activityLog(state.activities)}
+          ${state.activities.length == 0
+            ? `<p>You do not have any activities logged yet!</p>`
+            : `${activityLog(state.activities)}`}
         </div>
         <form class="hidden" id="addStepForm">
           <label for="stepDate">Date </label>
