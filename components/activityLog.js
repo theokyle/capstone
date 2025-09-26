@@ -10,9 +10,16 @@ export default activities => {
         </tr>
       </thead>
       <tbody>
-        ${activities.map(
-          entry => `<tr><td>${entry.date}</td><td>${entry.distance}</td></tr>`
-        )}
+        ${activities.map(entry => {
+          const date = new Date(entry.date);
+          return `<tr>
+          <td>${date.toDateString()}</td>
+          <td>${
+            entry.distance
+          }</td><td class="clear"><button class="button deleteActivity" value="${
+            entry._id
+          }">Delete Activity</button></td></tr>`;
+        })}
       </tbody>
     </table>
   `;

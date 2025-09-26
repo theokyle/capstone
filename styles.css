@@ -299,6 +299,11 @@ th {
   background-color: #dda15e;
 }
 
+.clear {
+  background-color: var(--accent-background);
+  border: none;
+}
+
 /* Journeys Page */
 
 .outer-bar {
