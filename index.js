@@ -24,20 +24,18 @@ router.hooks({
     )
   },
   already: async (match) => {
-  router.updatePageLinks();
   const view = match?.data?.view ? camelCase(match.data.view) : "home";
 
   await new Promise(res => views.tracker.before(res))
   render(store[view]);
   views[view].after(router);
+  router.updatePageLinks();
 
   },
   after: (match) => {
-    router.updatePageLinks();
-
     const view = match?.data?.view ? camelCase(match.data.view) : "home";
     views[view].after(router);
-
+    router.updatePageLinks();
   }
 });
 
@@ -45,7 +43,6 @@ router.on({
   "/": () => render(),
   '/:view': function(match) {
     const view = match?.data?.view ? camelCase(match.data.view) : "home";
-
     render(store[view]);
   }
 }).resolve();

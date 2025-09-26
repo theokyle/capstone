@@ -46,6 +46,7 @@ export async function handlerLogin(req, res) {
     //Respond with the created token
     res.json(data);
   } catch (error) {
+    console.log(error);
     if (error.message === "invalid user") {
       res.status(400).json(error.errors);
     }
