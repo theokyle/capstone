@@ -78,6 +78,10 @@ function after(router) {
           })
           .then(response => {
             store.journeys.journeys = response.data;
+            store.tracker.image = "";
+            store.tracker.journeyName = "";
+            store.tracker.nextMilestone = {};
+            store.tracker.milestonesCompleted = [];
             router.navigate("/journeys");
           });
       })

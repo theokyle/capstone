@@ -47,7 +47,7 @@ async function after(router) {
       axios
         .post(`${process.env.STEPQUEST_API_URL}/journeys`, requestData, {
           headers: {
-            Authorization: process.env.TEMP_JWT
+            Authorization: store.profile.token
           }
         })
         .then(response => {

@@ -3,9 +3,12 @@ import Activity from "../models/Activity.js";
 export async function handlerGetActivities(req, res) {
   try {
     const userId = req.user._id;
-    const activities = await Activity.find({ userId: userId });
+    const activities = await Activity.find({ userId: userId }).sort({
+      date: 1
+    });
     res.json(activities);
   } catch (error) {
+    console.log(error);
     res.status(500).json(error.errors);
   }
 }
@@ -21,6 +24,7 @@ export async function handlerPostActivity(req, res) {
     const data = await activity.save();
     res.status(201).json(data);
   } catch (error) {
+    console.log(error);
     if ("name" in error && error.name === "ValidationError")
       res.status(400).json(error.errors);
 
@@ -31,6 +35,7 @@ export async function handlerPostActivity(req, res) {
 export async function handlerDeleteActivity(req, res) {
   try {
     const data = await Activity.findByIdAndDelete(req.params.activityId);
+
     res.json(data);
   } catch (error) {
     res.status(500).json(error.errors);

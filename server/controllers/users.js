@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import { handlerLogin } from "../auth/auth.js";
 
 dotenv.config();
 
@@ -18,7 +19,12 @@ export async function handlerGetUsers(req, res) {
 
 export async function handlerPostUser(req, res) {
   try {
-    const user = new User(req.body);
+    let user = await User.findOne({ email: req.body.email });
+    if (user) {
+      return handlerLogin(req, res);
+    }
+
+    user = new User(req.body);
 
     //login the newly created user
     const token = jwt.sign({ userId: user.id }, secret, {

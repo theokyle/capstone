@@ -24,8 +24,8 @@ function render(state) {
           ${state.milestonesCompleted.map(ms => milestone(ms, false)).join("")}
         </div>`
           : ""}
-
-        <div class="section">
+        ${state.journeyName
+          ? `<div class="section">
           <h2>Add Distance</h2>
           <form id="addStep" method="POST">
             <input
@@ -43,7 +43,8 @@ function render(state) {
             />
           </form>
           <button id="reset" class="button">Reset Progress</button>
-        </div>
+        </div>`
+          : ""}
       </div>
     </main>
   `;
@@ -72,43 +73,47 @@ async function before(done) {
 }
 
 async function after(router) {
-  document.querySelector("form").addEventListener("submit", event => {
-    event.preventDefault();
+  if (document.querySelector("form")) {
+    document.querySelector("form").addEventListener("submit", event => {
+      event.preventDefault();
 
-    const inputList = event.target.elements;
+      const inputList = event.target.elements;
 
-    const requestData = {
-      distance: inputList.distance.value
-    };
+      const requestData = {
+        distance: inputList.distance.value
+      };
 
-    axios
-      .put(
-        `${process.env.STEPQUEST_API_URL}/progress/addDistance`,
-        requestData,
-        {
+      axios
+        .put(
+          `${process.env.STEPQUEST_API_URL}/progress/addDistance`,
+          requestData,
+          {
+            headers: {
+              Authorization: store.profile.token
+            }
+          }
+        )
+        .then(() => {
+          router.resolve();
+        })
+        .catch(error => {
+          console.log("Error adding steps: ", error);
+        });
+    });
+  }
+
+  if (document.getElementById("reset")) {
+    document.getElementById("reset").addEventListener("click", event => {
+      axios
+        .put(`${process.env.STEPQUEST_API_URL}/progress/resetProgress`, "", {
           headers: {
             Authorization: store.profile.token
           }
-        }
-      )
-      .then(() => {
-        router.resolve();
-      })
-      .catch(error => {
-        console.log("Error adding steps: ", error);
-      });
-  });
-
-  document.getElementById("reset").addEventListener("click", event => {
-    axios
-      .put(`${process.env.STEPQUEST_API_URL}/progress/resetProgress`, "", {
-        headers: {
-          Authorization: store.profile.token
-        }
-      })
-      .then(() => router.resolve())
-      .catch(error => console.log("Error resetting progress: ", error));
-  });
+        })
+        .then(() => router.resolve())
+        .catch(error => console.log("Error resetting progress: ", error));
+    });
+  }
 }
 
 export default {

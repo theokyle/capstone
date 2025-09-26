@@ -7,10 +7,6 @@ function render() {
     <main>
       <div class="hero">
         <h1>StepQuest</h1>
-        <form>
-          <input type="email" id="email" placeholder="Enter your email..." />
-          <input type="submit" value="Sign up Today!" class="button" />
-        </form>
       </div>
       <div class="content">
         <div class="about">
@@ -61,26 +57,7 @@ function before(done) {
   done();
 }
 
-function after(router) {
-  document.querySelector("form").addEventListener("submit", event => {
-    event.preventDefault;
-
-    const requestData = {
-      email: event.target.elements.email.value
-    };
-
-    axios
-      .post(`${process.env.STEPQUEST_API_URL}/users/`, requestData)
-      .then(response => {
-        store.profile.token = response.data.token;
-        store.profile.email = response.data.email;
-        router.navigate("/tracker");
-      })
-      .catch(error => {
-        console.log("Error creating user", error);
-      });
-  });
-}
+function after() {}
 
 export default {
   render,
