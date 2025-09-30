@@ -18,7 +18,7 @@ function render(state) {
         <form class="hidden" id="addActivity">
           <label for="activityDate">Date </label>
           <input type="date" name="date" id="activityDate" />
-          <label for="distance">Distance </label>
+          <label for="distance">Distance (miles)</label>
           <input type="number" name="count" id="distance" />
           <input class="button" type="submit" value="Add Distance" />
         </form>

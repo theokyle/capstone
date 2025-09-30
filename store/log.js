@@ -1,4 +1,7 @@
 export default {
   view: "log",
-  activities: []
+  activities: [],
+  reset() {
+    this.activities = [];
+  }
 };

@@ -26,7 +26,6 @@ function render(state) {
           </div>
           </form>`}
         </div>
-        <button id="fitbit" class="button">Sync with Fitbit</button>
       </div>
     </main>
   `;
@@ -39,7 +38,11 @@ function before(done) {
 function after(router) {
   if (document.querySelector("#logout")) {
     document.querySelector("#logout").addEventListener("click", () => {
-      store.profile.token = "";
+      store.createJourney.reset();
+      store.journeys.reset();
+      store.journeySearch.reset();
+      store.profile.reset();
+      store.tracker.reset();
       router.resolve();
     });
   }

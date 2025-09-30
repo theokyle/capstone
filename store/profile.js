@@ -1,5 +1,9 @@
 export default {
   view: "profile",
   email: "",
-  token: ""
+  token: "",
+  reset() {
+    this.email = "";
+    this.token = "";
+  }
 };

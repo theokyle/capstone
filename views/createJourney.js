@@ -29,6 +29,7 @@ async function before(done) {
 
 async function after(router) {
   document.getElementById("complete").addEventListener("click", () => {
+    store.createJourney.reset();
     router.navigate("/journeys");
   });
 

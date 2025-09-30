@@ -1,4 +1,7 @@
 export default {
   view: "journeys",
-  journeys: []
+  journeys: [],
+  reset() {
+    this.journeys = [];
+  }
 };
