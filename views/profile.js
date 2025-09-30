@@ -26,7 +26,6 @@ function render(state) {
           </div>
           </form>`}
         </div>
-        <button id="fitbit" class="button">Sync with Fitbit</button>
       </div>
     </main>
   `;
