@@ -26,11 +26,11 @@ function render(state) {
           : ""}
         ${state.journeyName
           ? `<div class="section">
-          <h2>Add Distance</h2>
+          <h2>Add Distance (miles)</h2>
           <form id="addStep" method="POST">
             <input
               type="number"
-              placeholder="Distance traveled..."
+              placeholder="Miles traveled..."
               name="distance"
               id="distance"
             />

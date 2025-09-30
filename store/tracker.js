@@ -3,5 +3,11 @@ export default {
   image: "",
   journeyName: "",
   nextMilestone: {},
-  milestonesCompleted: []
+  milestonesCompleted: [],
+  reset() {
+    this.image = "";
+    this.journeyName = "";
+    this.nextMilestone = {};
+    this.milestonesCompleted = [];
+  }
 };
